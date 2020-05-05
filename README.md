@@ -1,4 +1,4 @@
 # Vislice
-Janez Janša
+Ivan Vidav
 Jurij Vega
 Josip Plemelj
