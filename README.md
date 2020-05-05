@@ -1,2 +1,4 @@
 # Vislice
-ggg
+Ivan Vidav
+Jurij Vega
+Josip Plemelj
