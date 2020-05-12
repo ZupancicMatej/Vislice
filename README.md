@@ -1,4 +1,3 @@
 # Vislice
-Ivan Vidav
-Jurij Vega
-Josip Plemelj
+
+Program za igro vislic.
