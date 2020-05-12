@@ -1,3 +1,5 @@
+import random
+
 STEVILO_DOVOLJENIH_NAPAK = 10
 
 PRAVILNA_CRKA = '+'
@@ -64,3 +66,12 @@ class Igra:
             else:
                 return NAPACNA_CRKA
 
+with open('besede.txt', encoding="utf-8") as f:
+    bazen_besed = f.read().split("\n")
+
+def nova_igra():
+    beseda = random.choice(bazen_besed)
+
+    igra = Igra(beseda)
+
+    return igra
