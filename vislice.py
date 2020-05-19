@@ -12,15 +12,23 @@ def index():
 def static_file(picture):
     bottle.static_file(picture, 'img')
 
-@bottle.get("/igra/")
+@bottle.post("/igra/")
 def nova_igra():
-    pass
+    id_igre = vislice.nova_igra()
+    bottle.redirect(f'igra/{id_igre}/')
 
+@bottle.get("/igra/<id_igre:int>/")
 def pokazi_igro(id_igre):
-    pass
+    igra, stanje = vislice.igre[id_igre]
 
+    return bottle.template('igra', igra = igra, stanje = stanje, id_igre = id_igre)
+
+@bottle.post("/igra/<id_igre:int>/") 
 def ugibaj(id_igre):
-    pass
+    crka = bottle.request.forms.get('crka')
 
+    vislice.ugibaj(id_igre, crka)
+
+    bottle.redirect(f'igra/{id_igre}/')
 
 bottle.run(reloader=True, debug=True)
