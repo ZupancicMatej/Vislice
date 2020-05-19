@@ -21,7 +21,7 @@ def nova_igra():
 def pokazi_igro(id_igre):
     igra, stanje = vislice.igre[id_igre]
 
-    return bottle.template('igra', igra = igra, stanje = stanje, id_igre = id_igre)
+    return bottle.template('igra', igra = igra, stanje = stanje, id_igre = id_igre, ZMAGA=model.ZMAGA, PORAZ=model.PORAZ)
 
 @bottle.post("/igra/<id_igre:int>/") 
 def ugibaj(id_igre):
