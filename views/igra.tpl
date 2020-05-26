@@ -1,8 +1,3 @@
-<!DOCTYPE html>
-<html>
-
-<body>
-    
     <div>
         <img src="/img/{{igra.stevilo_napak()}}.jpg" />
     </div>
@@ -29,6 +24,5 @@
         <input name='crka' /> <input type="submit" value="Ugibaj!">
     </form>
 % end
-</body>
 
-</html>
+%rebase base naslov='Igra vislic'
