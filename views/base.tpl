@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Vislice</title>
+    <title>{{naslov or 'Vislice'</title>
 </head>
 <body>
     %include
