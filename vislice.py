@@ -1,7 +1,9 @@
 import bottle, model
 SKRIVNI_KLJUC = 'Uganil si najbolj skrit ključ vseh časov.'
 
-vislice = model.Vislice()
+DATOTEKA_S_STANJEM = 'stanje.json'
+
+vislice = model.Vislice(DATOTEKA_S_STANJEM)
 
 bottle.TEMPLATE_PATH.insert(0, 'views')
 
@@ -15,6 +17,7 @@ def static_file(picture):
 
 @bottle.post('/nova_igra')
 def zacni_novo_igro():
+    vislice.nalozi_igre_iz_datoteke()
     id_igre = vislice.nova_igra()
     bottle.response.set_cookie("id_igre", id_igre, secret=SKRIVNI_KLJUC, path='/')
     bottle.redirect('/igra/')
@@ -27,11 +30,13 @@ def pokazi_igro(id_igre):
     return bottle.template('igra', igra = igra, stanje = stanje, id_igre = id_igre, ZMAGA=model.ZMAGA, PORAZ=model.PORAZ)
 
 @bottle.post("/igra/") 
-def ugibaj(id_igre):
+def ugibaj():
+    vislice.nalozi_igre_iz_datoteke()
     id_igre = bottle.request.get_cookie("id_igre", secret=SKRIVNI_KLJUC)
-    crka = bottle.request.forms.getunicode('crka')
+    crka = bottle.request.forms.crka
 
     vislice.ugibaj(id_igre, crka)
+    vislice.zapisi_igre_v_datoteko()
 
     bottle.redirect(f'igra/{id_igre}/')
 

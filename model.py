@@ -80,7 +80,7 @@ def nova_igra():
     return igra
 
 class Vislice:
-    def __init__(self, datoteka_s_stanjem):
+    def __init__(self, datoteka_s_stanjem, datoteka_z_besedami='besede.txt'):
         self.igre = {}
         self.datoteka_s_stanjem = datoteka_s_stanjem
 
@@ -92,13 +92,17 @@ class Vislice:
     
     def nova_igra(self):
         self.nalozi_igre_iz_datoteke()
-        
-        
-        nov_id = self.prost_id_igre()
-        igra = nova_igra()
 
+        with open('besede.txt', encoding="utf-8") as f:
+            bazen_besed = f.read().split("\n")
+
+
+        beseda = random.choice(bazen_besed)
+        
+        igra = Igra(beseda)
+
+        nov_id = self.prost_id_igre()
         self.igre[nov_id] = (igra, ZACETEK)
-        self.zapisi_igre_v_datoteko()
         return nov_id
 
     def ugibaj(self, id_igre, crka):
