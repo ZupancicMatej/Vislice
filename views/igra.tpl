@@ -14,13 +14,13 @@
     % else:
         <b>Več sreče prihodnjič! Pravilno geslo je bilo {{igra.geslo()}}.</b>
     % end
-    <form action="/igra/" method="post">
+    <form action="/nova_igra/" method="post">
         <button type="submit">Nova igra</button>
     </form>
 
 % else:
 
-    <form method = "post" action = "/igra/{{id_igre}}/">
+    <form method = "post" action = "/igra/">
         <input name='crka' /> <input type="submit" value="Ugibaj!">
     </form>
 % end

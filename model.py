@@ -1,4 +1,5 @@
 import random
+import json
 
 STEVILO_DOVOLJENIH_NAPAK = 9
 
@@ -79,8 +80,9 @@ def nova_igra():
     return igra
 
 class Vislice:
-    def __init__(self):
+    def __init__(self, datoteka_s_stanjem):
         self.igre = {}
+        self.datoteka_s_stanjem = datoteka_s_stanjem
 
     def prost_id_igre(self):
         if self.igre.keys():
@@ -89,15 +91,36 @@ class Vislice:
             return 0
     
     def nova_igra(self):
-        id_igre = self.prost_id_igre()
+        self.nalozi_igre_iz_datoteke()
+        
+        
+        nov_id = self.prost_id_igre()
         igra = nova_igra()
 
-        self.igre[id_igre] = (igra, ZACETEK)
-
-        return id_igre
+        self.igre[nov_id] = (igra, ZACETEK)
+        self.zapisi_igre_v_datoteko()
+        return nov_id
 
     def ugibaj(self, id_igre, crka):
         igra = self.igre[id_igre][0]
         novo_stanje = igra.ugibaj(crka)
 
         self.igre[id_igre] = (igra, novo_stanje)
+
+    def nalozi_igre_iz_datoteke(self):
+        with open(self.datoteka_s_stanjem) as datoteka:
+            zakodirane_igre = json.load(datoteka)
+            igre = {}
+
+            for id_igre in zakodirane_igre:
+                igra = zakodirane_igre[id_igre]
+                igre[int(id_igre)] = (Igra(igra['geslo'], igra['crke']), igra['poskus'])
+            self.igre = igre
+
+    def zapisi_igre_v_datoteko(self):
+        with open(self.datoteka_s_stanjem, "w") as datoteka:
+            zakodirane_igre = {}
+            for id_igre in self.igre:
+                (igra, poskus) = self.igre[id_igre]
+                zakodirane_igre[id_igre] = {"geslo": igra.geslo, "crke": igra.crke, "poskus": poskus}
+            json.dump(zakodirane_igre, datoteka)
