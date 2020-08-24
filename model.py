@@ -69,8 +69,13 @@ class Igra:
             if self.poraz():
                 return PORAZ
             else:
-                return NAPACNA_CRKA
+                return  
 
+with open("C:\\Users\\Matej Zupančič\\Documents\\Uvod v programiranje\\Vislice\\besede.txt", "r", encoding='utf-8') as f:
+    bazen_besed = f.read().split("/n")
+
+def nova_igra():
+    return Igra(random.choice(bazen_besed))
 
 
 class Vislice:
