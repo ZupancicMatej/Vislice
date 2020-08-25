@@ -72,7 +72,7 @@ class Igra:
                 return  
 
 with open("C:\\Users\\Matej Zupančič\\Documents\\Uvod v programiranje\\Vislice\\besede.txt", "r", encoding='utf-8') as f:
-    bazen_besed = f.read().split("/n")
+    bazen_besed = [vrstica.strip().upper() for vrstica in f]
 
 def nova_igra():
     return Igra(random.choice(bazen_besed))
